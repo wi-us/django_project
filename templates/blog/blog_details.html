@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" />
+    <title>Blog</title>
+</head>
+<body>  
+    <header>
+        <div class="site_name_box">
+            <a class="site_name_link" href="/"><h1 class="special_text">iBLOG</h1></a>
+        </div>
+        <div class="search_box box"></div>
+        <div class="authorization_box">
+            <a class="sign_in_link" href="/admin"><h2 class="special_text">Sign in</h2></a>
+        </div>
+    </header>
+    <h1 id="post_title">{{ post.title }}</h1>
+    <div class="post_text box">
+        <p> {{ post.description }} </p>
+    </div>
+    <div class="post_comment_block flex-column">
+        <h2>Комментарии <span class="special_text">{{ post.comments_set.all.count }}</span> </h2>
+        <div class="send_comment_form flex-column">
+            <form action="{% url 'add_comments' post.id %}" method="post" class="comment_form flex-column">
+            {% csrf_token %}
+                <div class="comment_input_name flex-row">
+                    <p>Имя</p>
+                    <input class="input_box box" name="name" type="text" required minlength="4" maxlength="64" placeholder="Введите текст..."/>
+                </div>
+                <div class="comment_input_comment flex-row">
+                    <p>Комментарий</p>
+                    <textarea class="input_box box" name="text_comments" type="text" required minlength="1" contenteditable maxlength="2000" placeholder="Введите текст..."/></textarea>
+                </div>
+                
+                <input class="comment_send_button box" type="submit" text="Отправить"/>
+            </form>
+        </div>
+        <!-- Вывод других комментариев-->
+        <div class="comments flex-column">
+
+
+
+        {% for comment in post.comments_set.all %}
+        <div class="comment box flex-column">
+            <div class="comment_photo_name_date flex-row">
+                <img src="" style="width:80px; height:80px; border-radius:90px;" />
+                <div class="comment_name_date flex-column">
+                    <h4 class="h4_comment_name">{{ comment.name }}</h4>
+                    <h5 class="h5_comment_date">{{ comment.date|date:"d.m.Y"}} {{ comment.time}}</h5>
+                </div>
+            </div>
+            <div class="comment_text flex-row">
+                <p>{{ comment.text_comments }}</p>
+            </div>
+            <div class="comment_buttons flex-row">
+                <h4 class="special_text">Ответить</h4>
+                <h4 class="special_text">Редактировать</h4>
+                <h4 class="special_text">Удалить</h4>
+            </div>
+        </div>
+        {% endfor %}
+                </div>
+    </div>
+    
+</body>
+</html>

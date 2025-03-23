@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" />
+    <title>Blog</title>
+</head>
+<body>  
+    <header>
+        <div class="site_name_box">
+            <a class="site_name_link" href="/"><h1 class="special_text">iBLOG</h1></a>
+        </div>
+        <div class="search_box box"></div>
+        <div class="authorization_box">
+            <a class="sign_in_link" href="/admin"><h2 class="special_text">Sign in  </h2></a>
+        </div>
+    </header>
+    <div class="filters_box flex-row">
+        <div class="box filters_item selected" id="all_posts">
+            <h3>Все посты<h3>
+        </div>
+        <div class="box filters_item" id="tag_contries">
+            <h3>Страны<h3>
+        </div>
+        <div class="box filters_item" id="tag_restaraunts">
+            <h3>Рестораны<h3>
+        </div>
+        <div class="box filters_item" id="tag_hotels">
+            <h3>Отели<h3>
+        </div>
+        <div class="box filters_item" id="tag_lifehacks">
+            <h3>Лайфхаки<h3>
+        </div>
+    </div>
+    <div class="post_list flex-row">
+    {% for post in post_list %}
+        <a href="{{ post.id }}">
+            <div class="post_card_box box flex-row">
+                <img class="post_img" src="{{ post.img.url }}" />
+                <div class="post_card_content flex-column">
+                    <div class="post_card_text">
+                        <h3>{{ post.title }}</h3>
+                        <p>{{ post.short_description }}</p>
+                    </div>
+                    <div class="post_card_footer flex-column">
+                        <div class="post_rating_comments flex-row">
+                            <div class="post_rating flex-row">
+                                <img src="media/icons/star.png" style="width:16px; height:16px;" />
+                                <p>4.5</p>
+                            </div>
+                            <div class="post_comments flex-row">
+                                <img src="media/icons/comments.png" style="width:16px; height:16px;" />
+                                <p>{{ post.comments_set.all.count }}</p>
+                            </div>
+                        </div>
+                        <div class="post_author_date flex-row">
+                            <div class="post_rating flex-row">
+                                <p>{{ post.author }}</p>
+                            </div>
+                            <div class="post_comments flex-row">
+                                <p>{{ post.date|date:"d.m.Y"}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+    </div>
+    {{ cur_page }}
+</body>
+</html>
