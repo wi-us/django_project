@@ -4,11 +4,25 @@ from .models import Post
 from .form import CommentsForm
 from django.core.paginator import Paginator
 
-class PostView(View):
+
+class _PostView(View):
     '''Вывод записи'''
     def get(self, request):
         posts = Post.objects.all()
         return render(request, 'blog/blog.html', {'post_list': posts})
+
+class PostView(View):
+    '''Вывод записи'''
+    def get(self, request):
+        posts = Post.objects.all().order_by('-date')
+        paginator = Paginator(posts, 6)
+        page = request.GET.get('page')
+
+        #получить номер страницы
+        page_obj = paginator.get_page(page)
+
+        return render(request, 'blog/blog.html', {'post_list': page_obj})
+
 
 class PostDetails(View):
     '''Отдельная страница записи'''
@@ -28,3 +42,14 @@ class AddComments(View):
             form.save()
 
         return redirect(f'/{pk}')
+
+
+def getPosts(request):
+    #получить страницу
+    posts = Post.objects.all()
+    paginator = Paginator(posts, 2)
+    page = request.GET.get('page')
+
+    #получить номер страницы
+    page_obj = paginator.get_page(page)
+    return render(request, 'blog/paginator.html', {"data": page_obj})

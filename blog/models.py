@@ -1,20 +1,20 @@
 from django.db import models
 import datetime
 from django.db.models import Sum
-
+from django.utils import timezone
 
 # Create your models here.
 
 class Post(models.Model):
     '''Данные о посте'''
-    title = models.CharField('Заголовок записи', max_length=100)
-    short_description = models.CharField('Краткое описание', max_length=200)
-    description = models.TextField('Текст записи')
-    author = models.CharField("Имя автора", max_length=100)
-    date = models.DateField("Дата публикации")
-    img = models.ImageField('Изображение', upload_to='image/%Y')
-    rating = models.FloatField('Рейтинг', max_length=5)
-    comments_number = models.IntegerField('Количество комментариев')
+    title = models.CharField('Заголовок записи', max_length=100, blank=False)
+    short_description = models.CharField('Краткое описание', max_length=200, blank=False)
+    description = models.TextField('Текст записи', blank=False)
+    author = models.CharField("Имя автора", max_length=100, default="wius", blank=True)
+    date = models.DateField("Дата публикации", default=timezone.now(), blank=True)
+    img = models.ImageField('Изображение', null=True, upload_to='image/%Y', default="image/defaul.png", blank=True)
+    rating = models.FloatField('Рейтинг', max_length=5, default=0.0 ,editable=False)
+    comments_number = models.IntegerField('Количество комментариев', default=0 ,editable=False)
     def __str__(self):
         return f'{self.title}, {self.author}'
     

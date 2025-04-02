@@ -1,11 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap');
+
 :root {
   --content-size: 1000px;
   --button: #f07167;
   --selected: #fce3e1;
+  --device-width: 1000px;
 }
 html,
 body {
-  width: 100vw;
   padding: 0px;
   margin: 0px;
 
@@ -15,48 +17,27 @@ body {
   flex-direction: column;
 }
 
+html
+{
+  width: 100vw;
+  overflow-x: hidden;
+}
+
 body {
-  width: 1000px;
+  width: 100%;
   padding-top: 20px;
   gap: 15px;
 }
 header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: start;
   flex-direction: row;
-  width: 1000px;
+  width: 100%;
   height: 50px;
   background-color: white;
 }
 
-.site_name_box,
-.search_box,
-.authorization_box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.site_name_box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 250px;
-}
-
-a {
-  text-decoration: none;
-}
-.search_box {
-  width: 500px;
-}
-
-.authorization_box {
-  width: 250px;
-}
 .box {
   border-radius: 10px;
   background-color: #f4f5f9;
@@ -69,6 +50,49 @@ a {
 .box:hover {
   background-color: var(--selected);
 }
+
+.site_name_box,
+.search_box,
+.authorization_box {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.site_name_box 
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 250px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.search_box
+{
+  width:  calc(50%);
+  border: none;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+}
+
+.search_box img
+{
+  opacity: 70%;
+}
+
+.authorization_box {
+  width: 250px;
+}
+
 
 .flex-column {
   display: flex;
@@ -85,28 +109,65 @@ a {
 }
 
 .filters_box {
-  width: 100%;
+  max-width: calc(100% - 40px);
   height: 50px;
   padding-left: 20px;
   padding-right: 20px;
   gap: 15px;
+
+  justify-content: start;
+  overflow-x: auto;
+  scrollbar-width: 0px;
+  overflow-y: hidden;
 }
 
 .filters_item {
   width: 180px;
   height: 50px;
 }
+
+.filters_item h3
+{
+  width: 180px;
+  height: auto;
+
+  vertical-align: middle;
+  text-align: center;
+  
+}
+
 .selected {
   background-color: var(--selected);
+  font-weight: 600;
 }
 
 .special_text {
   color: var(--button);
 }
 
+
+.post_list {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+
+  
+}
+
+.post_list a{
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
 .post_card_box {
-  width: 440px;
-  max-height: 243px;
+  --w: 440px;
+  --obj-w: calc(var(--w) / 2 - 15px);
+
+  width: var(--w);
+  min-height: calc(var(--w) / 2);
   align-items: left;
   justify-content: start;
   gap: 15px;
@@ -114,61 +175,70 @@ a {
 }
 
 .post_img {
-  width: 213px;
-  height: 213px;
+  width: var(--obj-w);
+  height: var(--obj-w);
   border-radius: 10px;
   background-image: var(--selected);
 }
 
 .post_card_footer {
-  width: 213px;
+  width: var(--obj-w);
   height: 52px;
   gap: 10px;
 }
 
 .post_card_footer div {
-  width: 213px;
+  width: var(--obj-w);
   height: 23px;
 }
 
 .post_card_footer div div {
-  width: calc(213px / 2);
+  width: calc(var(--obj-w) / 2);
   height: 23px;
 }
 
 .post_card_content {
-  height: 213px;
+  height: 100%;
+  width: calc(var(--obj-w) - 15px);
   justify-content: space-between;
+}
+
+.post_card_text
+{
+  width: 100%;
+  max-height: 161px;
+  gap: 10px;
+}
+
+.post_card_text h3
+{
+  width: 100%;
 }
 
 h3 {
   text-align: center;
 }
 
-.post_list {
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
-  width: 1000px;
-}
 
 .post_comment_block
 {
-    width: 1000px;
+    width: calc(100% - 50px);
     align-items: start;
     justify-content: start;
     gap: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 #post_title
 {
-    width: 1000px;
+    width: 100%;
     text-align: center;
 }
 
 .comment_input_name, .comment_input_comment
 {
-    width: 1000px;
+    width: 100%;
     height: 44px;
     align-items: center;
     justify-content: start;
@@ -188,7 +258,7 @@ h3 {
 
 .input_box
 {
-    width: calc(1000px - 150px - 20px);
+    width: calc(100% - 150px - 20px);
     height: 100%;
     justify-content: start;
     padding-left: 10px;
@@ -215,6 +285,12 @@ h3 {
 .comment_send_button p
 {
     color: white
+}
+
+h1, h2, h3, h4, h5, p, button, body
+{
+  font-family: "Exo 2", Arial, sans-serif;
+  word-wrap: break-word;
 }
 
 h1
@@ -251,6 +327,7 @@ p
 {
     font-size: 16pt;
     margin: 0px;
+    
 }
 
 
@@ -288,7 +365,7 @@ p
     align-items: start;
     padding-left: 90px;
     min-width: 300px;
-    max-width: 970px;
+    max-width: calc(100% - 30px);
 }
 
 .comment_text p
@@ -314,17 +391,18 @@ p
 
 .post_text
 {
+  width: calc(100% - 50px - 30px);
     padding: 15px;
 }
 
 .post_text p
 {
-    max-width: 970px;
+    max-width: calc(100% - 30px);
 }
 
 .comments
 {
-    width: 1000px;
+    width: 100%;
     align-items: start;
     justify-content: center;
     gap:20px;
@@ -349,4 +427,102 @@ textarea
     overflow-x: hidden;
     overflow-y: auto;
     resize: none;
+}
+
+.round_button
+{
+  border-radius: 90px;
+  width: 50px;
+  height: 50px;
+}
+
+.step-links, .pagination, .paginator_block
+{
+  width: 100%;
+  height: 80px;
+}
+
+.btn, .btn-secondary
+{
+  border-radius: 90px;
+  width: 50px;
+  height: 50px;
+  
+}
+
+.comments
+{
+  width: calc(100%);
+}
+
+.comment_buttons
+{
+  display: none;
+
+}
+
+
+.step-links
+{
+  gap: 10px;
+}
+
+@media (min-width: 380px) and (max-width: 480px)
+{
+  :root
+  {
+    --device-width: 320px;
+  }
+
+  .btn, .btn-secondary
+  {
+    border-radius: 90px;
+    width: 60px;
+    height: 60px;
+    
+  }
+
+  .post_text, .post_comment_block
+  {
+    width: calc(100% - 30px - 20px);
+  }
+
+  .comment_text
+  {
+      justify-content: start;
+      align-items: start;
+      padding-left: 90px;
+      min-width: 200px;
+  }
+
+  .search_box
+  {
+    display: none;
+  }
+
+  .post_card_content p
+  {
+    font-size: 18px;
+  }
+  .post_card_text h3
+  {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 500px)
+{
+
+  
+  .post_card_box
+  {
+    --w: 340px;
+    width: 340px;
+  }
+
+  .post_date p
+  {
+    font-size: 18px;
+  }
+
 }
